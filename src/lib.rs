@@ -63,6 +63,9 @@ impl PathObj {
         format!("{}", current.display()) 
     }
     
+    pub fn get(&self) -> String {
+        self.path.into_os_string().into_string().unwrap()
+    }
 }
 
 /*
