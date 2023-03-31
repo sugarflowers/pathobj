@@ -64,7 +64,7 @@ impl PathObj {
     }
     
     pub fn get(&self) -> String {
-        self.path.into_os_string().into_string().unwrap()
+        self.path.into_os_string().into_string().unwrap().clone()
     }
 }
 
