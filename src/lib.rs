@@ -70,6 +70,14 @@ impl PathObj {
     pub fn set(&mut self, path: &str) {
         self.path = PathBuf::from(path);
     }
+
+    pub fn is_dir(&self) -> bool {
+        self.path.is_dir()
+    }
+
+    pub fn is_file(&self) -> bool {
+        self.path.is_file()
+    }
 }
 
 /*
