@@ -66,6 +66,10 @@ impl PathObj {
     pub fn get(&self) -> String {
         format!("{}", self.path.to_str().unwrap())
     }
+
+    pub fn set(&mut self, path: &str) {
+        self.path = PathBuf::from(path);
+    }
 }
 
 /*
