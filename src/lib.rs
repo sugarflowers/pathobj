@@ -1,22 +1,6 @@
-/*
- * This file is part of PROJECT.
- *
- * PROJECT is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * PROJECT is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with PROJECT.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 use std::path::PathBuf;
 use std::env;
+use std::fs;
 
 pub struct PathObj {
     pub path: PathBuf,
@@ -58,10 +42,6 @@ impl PathObj {
         format!("{}", path.to_string_lossy())
     }
     
-    pub fn getcwd() -> String {
-        let current = env::current_dir().unwrap();
-        format!("{}", current.display()) 
-    }
     
     pub fn get(&self) -> String {
         format!("{}", self.path.to_str().unwrap())
@@ -78,21 +58,41 @@ impl PathObj {
     pub fn is_file(&self) -> bool {
         self.path.is_file()
     }
+
+    pub fn getcwd(&mut self) {
+        let current = env::current_dir().unwrap();
+        self.path = current;
+    }
+
+    pub fn is_exists(&self) -> bool {
+        if let Ok(_m) = fs::metadata(&self.path) {
+            true
+        } else {
+            false
+        }
+    }
+
+    /*
+    pub fn getcwd() -> String {
+        let current = env::current_dir().unwrap();
+        format!("{}", current.display()) 
+    }
+
+    pub fn is_exists(path: &str) -> bool {
+        if let Ok(_m) = fs::metadata(path) {
+            true
+        } else {
+            false
+        }
+    }
+    */
 }
 
-/*
 
-use pathobj::PathObject;
+#[test]
+fn new_function_test() {
+    let mut p = PathObj::new();
+    p.getcwd();
+    println!("{:?}", p.is_exists());
+}
 
-let mut path = PathObject::new();
-path.push(&t);
-path.push("aaa");
-
-path.join(vec!["abc", "def", "ghi.png"]);
-
-println!("{}", path.parent());
-println!("{}", path.file_name());
-println!("{}", path.extension());
-println!("{}", PathObject::getcwd());
-
- */
