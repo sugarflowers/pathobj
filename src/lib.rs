@@ -23,6 +23,11 @@ impl PathObj {
         }
     }
 
+    pub fn from_str(&mut self, val: &str) {
+        let sval: Vec<&str> = val.split(std::path::MAIN_SEPARATOR).collect();
+        self.join(sval);
+    }
+
     pub fn pop(&mut self) {
         self.path.pop();
     }
@@ -94,5 +99,11 @@ fn new_function_test() {
     let mut p = PathObj::new();
     p.getcwd();
     println!("{:?}", p.is_exists());
+}
+#[test]
+fn str_path() {
+    let mut p = PathObj::new();
+    p.from_str("a\\b\\c");
+    println!("{:?}", p.parent());
 }
 
