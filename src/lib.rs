@@ -71,12 +71,12 @@ impl PathObj {
 
     pub fn get_home(&mut self) {
         let home = env::get_env("USERPROFILE");
-        self.from_str(&home);
+        self.set(&home);
     }
 
     pub fn get_temp(&mut self) {
         let temp = env::get_env("TEMP");
-        self.from_str(&temp);
+        self.set(&temp);
     }
 
     pub fn is_exists(&self) -> bool {
