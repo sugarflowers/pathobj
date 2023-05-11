@@ -1,5 +1,5 @@
 use std::path::PathBuf;
-use std::env;
+//use std::env;
 use std::fs;
 
 pub struct PathObj {
@@ -65,8 +65,18 @@ impl PathObj {
     }
 
     pub fn getcwd(&mut self) {
-        let current = env::current_dir().unwrap();
+        let current = std::env::current_dir().unwrap();
         self.path = current;
+    }
+
+    pub fn get_home(&mut self) {
+        let home = env::get_env("USERPROFILE");
+        self.from_str(&home);
+    }
+
+    pub fn get_temp(&mut self) {
+        let temp = env::get_env("TEMP");
+        self.from_str(&temp);
     }
 
     pub fn is_exists(&self) -> bool {
@@ -76,21 +86,6 @@ impl PathObj {
             false
         }
     }
-
-    /*
-    pub fn getcwd() -> String {
-        let current = env::current_dir().unwrap();
-        format!("{}", current.display()) 
-    }
-
-    pub fn is_exists(path: &str) -> bool {
-        if let Ok(_m) = fs::metadata(path) {
-            true
-        } else {
-            false
-        }
-    }
-    */
 }
 
 
@@ -106,4 +101,10 @@ fn str_path() {
     p.from_str("a\\b\\c");
     println!("{:?}", p.parent());
 }
-
+#[test]
+fn home_dir() {
+    let mut p = PathObj::new();
+    p.get_home();
+    println!("{:?}", p.get());
+    println!("{:?}", p.parent());
+}
