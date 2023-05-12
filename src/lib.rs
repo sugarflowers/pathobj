@@ -49,7 +49,8 @@ impl PathObj {
     
     
     pub fn get(&self) -> String {
-        format!("{}", self.path.to_str().unwrap())
+        //format!("{}", self.path.to_str().unwrap())
+        self.path.to_string_lossy().as_ref().to_string()
     }
 
     pub fn set(&mut self, path: &str) {
