@@ -24,8 +24,11 @@ impl PathObj {
     }
 
     pub fn from_str(&mut self, val: &str) {
+        /*
         let sval: Vec<&str> = val.split(std::path::MAIN_SEPARATOR).collect();
         self.join(sval);
+        */
+        assert!(false, r#""from_str()" has been deprecated, please use "set()" instead"#);
     }
 
     pub fn pop(&mut self) {
@@ -98,7 +101,8 @@ fn new_function_test() {
 #[test]
 fn str_path() {
     let mut p = PathObj::new();
-    p.from_str("a\\b\\c");
+    //p.from_str("a\\b\\c");
+    p.set("a\\b\\c");
     println!("{:?}", p.parent());
 }
 #[test]
